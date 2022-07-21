@@ -1,4 +1,4 @@
-//most entities have this code below here to detect entities summoned from beehive/nest block
+//most entities have this code below here to detect if they're summoned from beehive/nest block
 
     "events": {
       "minecraft:exited_hive": {
