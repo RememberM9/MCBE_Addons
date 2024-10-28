@@ -248,7 +248,7 @@ Object.defineProperty(Object.prototype, 'copy', {
             }
         } return O
     }
-});
+}); 
 
 /**@type {(prototype: any, object: any) => any} */
 export var OverTakesJS; {
