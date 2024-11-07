@@ -63,3 +63,94 @@ function TestThis() {
       } else preChat.cancel = false
    })
 } TestThis()
+
+
+
+
+
+
+
+
+/* "Voyager" by @kishimisu (2024) - https://www.shadertoy.com/view/M33XDH
+   [433 => 426 chars thanks to Snoopeth]
+
+   it seems to have reached its destination..
+   
+   This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
+   International License (https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.06, 2, .2);
+   float i, t, d, n, T = iTime;
+
+   for (O *= i, u = abs(2.6 * u - R.xy) / R.y; i++ < 50.;
+
+      p = q = t * normalize(vec3(.00314151269 + tan(sqrt(T)) * u * -mat2(cos(-T / 16. + vec4(9. + sin(T), t, p.z / T, .0005))), 1))
+   )
+      n = -sin(p.z += T) * cos(p.x * 1.4 + T / 4.) * cos(p.z * .02 - T * 1.0003) * .7 + .4,
+
+         p.y += 1. + q.z * sin(T / 6.) * .2 - n,
+
+         t += d = sin(length(p = mod(p, f + f) - f)) - .08,
+
+         O += .07 * pow(n, 5.) / ++d *
+         (1. + cos(length(q / (1e3)) * .14
+            + length(u) * .6 - tan(cos(T))
+            - texture(iChannel0, vec2(sin(log(q.z * .01)), -299. + tan(i))).r * (-3. + sin(T))
+            + vec4(0, 1, 2, 0)));
+}
+
+
+
+
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.006, 2,.2);
+   float i, t, d, n, T = iTime;
+             
+   for (O *= i, u = abs(2.*u-R.xy)/R.y; i++ < 61.; 
+   
+       p = q = t * normalize(vec3(-.3+tan(-sqrt(T))*u * mat2(cos(-T/16. + vec4(6.+sin(T),t,p.z/T,.0005))), 1))     
+   )
+       n = -sin(p.z+=T) * cos(p.x * 1.4 + T/4.) * cos(p.z*.02 - abs(sin(T))*1.0003) * .7 + .4 ,
+       
+       p.z += 1. + q.z * sin(sqrt(T)/T) * abs(sin(T)) - t,
+         
+       t += d = sin(length(p = mod(p, f+f) - f)) - .08, 
+
+       O += .07 * pow(n, 5.) / ++d *
+            (1. + cos(  length(q/(1e3)) * .14
+                      + length(u) * .9 - tan(cos(T))
+                      - texture(iChannel0, vec2(1.+sin(log(-q.z*.01)), -299.+tan(i))).r * (16.+sin(T))
+                      + vec4(0,1,2,0)  ));
+}
+
+
+
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.006, 2,.2);
+   float i, t, d, n, T = iTime;
+             
+   for (O *= i, u = abs(2.*u-R.xy)/R.y; i++ < 61.; 
+   
+       p = q = t * normalize(vec3(-.3+tan(-sqrt(T))*u * mat2(cos(-T/16. + vec4(6.+sin(T),t,p.z/T,.0005))), 1))     
+   )
+       T += sqrt(T),
+       n = -sin(p.z+=T) * cos(p.x * 1.4 + T/4.) * cos(p.z*.02 - abs(sin(T))*1.0003) * .7 + .4 ,
+       
+         p.y += 1. + q.z * sin(T / 6.) * .2 - n,
+       //p.z += 1. + q.z * sin(sqrt(T)/T) * abs(sin(T)) - t,
+         
+       t += d = sin(length(p = mod(p, f+f) - f)) - .08, 
+       T = iTime,
+
+       O += .07 * pow(n, 5.) / ++d *
+            (1. + cos(  length(q/(1e3)) * .14
+                      + length(u) * .9 - tan(cos(T))
+                      - texture(iChannel0, vec2(1.+sin(log(q.z*.01)), -299.+sin(i))).r * (16.+sin(T))
+                      + vec4(0,0,0,0)  ));
+    
+}
+                      
+*/
