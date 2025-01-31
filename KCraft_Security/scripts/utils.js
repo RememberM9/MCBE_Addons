@@ -12,24 +12,23 @@ export const random = (a = 1, b = 0, c = true) => {
     return c ? Math.round(a) : a;
 };
 
-export const initialsOf = (({ invalid, space, post }) => (str = '') => {
-    let result = '';
-    if (invalid.test(str) || str.length > 30 ||
-        (str = str?.replace?.(post, ' ').trim() ?? '')
-            .split(space).join('').length < 4
-    ) throw new Error('Create a different Name!');
-    result = str.split(space).reduce((res, s) => res + s[0], '');
-    if (result.length <= 1) result += str.replace(space, '')[1];
-    return result.substring(0, 3).toUpperCase();
-})({ space: /\s+/g, post: /\s+|§./g, invalid: /\"|\\/ });
+export const initialsOf = (() => {
+    const invalid = /\"|\\/, space = /\s+/g, post = /\s+|§./g;
+    return (str = '') => {
+        let result = '';
+        if (invalid.test(str) || str.length > 30 ||
+            (str = str?.replace?.(post, ' ').trim() ?? '')
+                .split(space).join('').length < 4
+        ) throw new Error('Create a different Name!');
+        if ((result = str.split(space).reduce((res, s) => res + s[0], '')).length <= 1)
+            result += str.replace(space, '')[1];
+        return result.substring(0, 3).toUpperCase();
+    }
+})();
 
 
 export function getFirstMention(message = '@') {
-    let name = message.split('@')[1];
-    if (!name) return ''
-    if (name.startsWith('"')) return name.split('"')[1];
-    if (name.includes(' ')) return name.split(' ')[0];
-    return name;
+    return (message = message?.split('@')[1]) ? message.startsWith('"') ? message.split('"')[1] : message.includes(' ') ? message.split(' ')[0] : message : "";
 };
 
 /**
