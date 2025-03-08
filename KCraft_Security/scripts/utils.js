@@ -7,6 +7,17 @@ export const clickTest = (data) => {
     return dateStamp - (stamp ?? dateStamp)
 };
 
+export const getChunk = (vec, divide_floor = 16, product = divide_floor) => {
+    /**  floor(A/B)*C  */
+    divide_floor = Math.abs(divide_floor);
+    let result = Array.isArray(vec) ? [] : {};
+    for (const key of Object.getOwnPropertyNames(vec))
+        typeof vec[key] === "number"
+            && key !== "length"
+            && (result[key] = Math.floor(vec[key] / divide_floor) * product);
+    return result;
+};
+
 export const random = (a = 1, b = 0, c = true) => {
     ({ a, b } = (a > b ? { a, b } : { b, a })), a = Math.random() * (a - b) + b;
     return c ? Math.round(a) : a;
