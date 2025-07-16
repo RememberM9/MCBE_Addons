@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@minecraft/server": "^1.16.0-beta.1.21.43-stable",
-    "@minecraft/server-ui": "^1.4.0-beta.1.21.43-stable",
-    "@types/mojang-minecraft": "^0.1.6"
-  }
-}
