@@ -1,0 +1,156 @@
+import { world, EntityQueryOptions, GameMode } from 'mojang-minecraft'
+
+function TestThis() {
+   let Xloc = 0
+   let Yloc = 0
+   let Zloc = 0
+   let Xvel = 0
+   let Yvel = 0
+   let Zvel = 0
+   let velSpeed = 0
+   let highAC = 0
+   let speedTag = 0
+   let s = 0
+
+   world.events.tick.subscribe(({ currentTick, deltaTime }) => {
+      const c = new EntityQueryOptions()
+      c.gameMode = 1
+      if (currentTick % 5 === 0) {
+         for (const player of world.getPlayers(c)) {
+            let locationSpeed = (Math.sqrt
+               (Math.abs(
+                  Math.pow((
+                     Math.round(player.location.x) * 1000 -
+                     Math.round(Xloc) * 1000) / 1000, 2) +
+                  Math.pow((
+                     Math.round(player.location.y) * 1000 -
+                     Math.round(Yloc) * 1000) / 1000, 2) +
+                  Math.pow((
+                     Math.round(player.location.z) * 1000 -
+                     Math.round(Zloc) * 1000) / 1000, 2))))
+            let locSpeed = `${((Math.round(locationSpeed * 100) * 2) * 0.01)}`
+            //player.runCommand(`title @s actionbar §2${locSpeed}§rm/s\n§3§r\n${((deltaTime*100000)*0.1)*5}`)
+
+            let xV = `${(Math.abs(player.velocity.x).toFixed(3)) * 40}`
+            let yV = `${(player.velocity.y.toFixed(3)) * 40}`
+            let zV = `${(Math.abs(player.velocity.z).toFixed(3)) * 40}`
+            let X = Math.pow((player.velocity.x), 2).toFixed(3)
+            let Y = Math.pow((player.velocity.y), 2).toFixed(3)
+            let Z = Math.pow((player.velocity.z), 2).toFixed(3)
+            let acceleration = `${(Math.sqrt(Math.pow(X, 2) + Math.pow(Z, 2)) * (deltaTime * 100)).toFixed(3)}`
+            let aveV = `${((xV + zV) / 2)}`
+            player.runCommand(`title @s actionbar §2${aveV}§rm/s\n${player.velocity.x.toFixed(3)}\n${acceleration}\n${4 - Math.round(deltaTime * 100)}`)
+
+            Xloc = player.location.x
+            Yloc = player.location.y
+            Zloc = player.location.z
+
+            Xvel = player.velocity.x
+            Yvel = player.velocity.y
+            Zvel = player.velocity.z
+         }
+      }
+      s = new Date().getTime()
+   })
+   world.events.beforeChat.subscribe((preChat) => {
+      let player = preChat.sender
+      let message = preChat.message
+      if (message.includes(`,mute`)) {
+         preChat.cancel = true
+         player.runCommand(`tag ${message.replace(',mute @', '')} add muted`)
+      } if (player.hasTag(`muted`)) {
+         preChat.cancel = true
+      } else preChat.cancel = false
+   })
+} TestThis()
+
+
+
+
+
+
+
+
+/* "Voyager" by @kishimisu (2024) - https://www.shadertoy.com/view/M33XDH
+   [433 => 426 chars thanks to Snoopeth]
+
+   it seems to have reached its destination..
+   
+   This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
+   International License (https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.06, 2, .2);
+   float i, t, d, n, T = iTime;
+
+   for (O *= i, u = abs(2.6 * u - R.xy) / R.y; i++ < 50.;
+
+      p = q = t * normalize(vec3(.00314151269 + tan(sqrt(T)) * u * -mat2(cos(-T / 16. + vec4(9. + sin(T), t, p.z / T, .0005))), 1))
+   )
+      n = -sin(p.z += T) * cos(p.x * 1.4 + T / 4.) * cos(p.z * .02 - T * 1.0003) * .7 + .4,
+
+         p.y += 1. + q.z * sin(T / 6.) * .2 - n,
+
+         t += d = sin(length(p = mod(p, f + f) - f)) - .08,
+
+         O += .07 * pow(n, 5.) / ++d *
+         (1. + cos(length(q / (1e3)) * .14
+            + length(u) * .6 - tan(cos(T))
+            - texture(iChannel0, vec2(sin(log(q.z * .01)), -299. + tan(i))).r * (-3. + sin(T))
+            + vec4(0, 1, 2, 0)));
+}
+
+
+
+
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.006, 2,.2);
+   float i, t, d, n, T = iTime;
+             
+   for (O *= i, u = abs(2.*u-R.xy)/R.y; i++ < 61.; 
+   
+       p = q = t * normalize(vec3(-.3+tan(-sqrt(T))*u * mat2(cos(-T/16. + vec4(6.+sin(T),t,p.z/T,.0005))), 1))     
+   )
+       n = -sin(p.z+=T) * cos(p.x * 1.4 + T/4.) * cos(p.z*.02 - abs(sin(T))*1.0003) * .7 + .4 ,
+       
+       p.z += 1. + q.z * sin(sqrt(T)/T) * abs(sin(T)) - t,
+         
+       t += d = sin(length(p = mod(p, f+f) - f)) - .08, 
+
+       O += .07 * pow(n, 5.) / ++d *
+            (1. + cos(  length(q/(1e3)) * .14
+                      + length(u) * .9 - tan(cos(T))
+                      - texture(iChannel0, vec2(1.+sin(log(-q.z*.01)), -299.+tan(i))).r * (16.+sin(T))
+                      + vec4(0,1,2,0)  ));
+}
+
+
+
+
+void mainImage(out vec4 O, vec2 u) {
+   vec3  p, q, R = iResolution, f = vec3(.006, 2,.2);
+   float i, t, d, n, T = iTime;
+             
+   for (O *= i, u = abs(2.*u-R.xy)/R.y; i++ < 61.; 
+   
+       p = q = t * normalize(vec3(-.3+tan(-sqrt(T))*u * mat2(cos(-T/16. + vec4(6.+sin(T),t,p.z/T,.0005))), 1))     
+   )
+       T += sqrt(T),
+       n = -sin(p.z+=T) * cos(p.x * 1.4 + T/4.) * cos(p.z*.02 - abs(sin(T))*1.0003) * .7 + .4 ,
+       
+         p.y += 1. + q.z * sin(T / 6.) * .2 - n,
+       //p.z += 1. + q.z * sin(sqrt(T)/T) * abs(sin(T)) - t,
+         
+       t += d = sin(length(p = mod(p, f+f) - f)) - .08, 
+       T = iTime,
+
+       O += .07 * pow(n, 5.) / ++d *
+            (1. + cos(  length(q/(1e3)) * .14
+                      + length(u) * .9 - tan(cos(T))
+                      - texture(iChannel0, vec2(1.+sin(log(q.z*.01)), -299.+sin(i))).r * (16.+sin(T))
+                      + vec4(0,0,0,0)  ));
+    
+}
+                      
+*/
